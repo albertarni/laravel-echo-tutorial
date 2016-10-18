@@ -5786,4 +5786,13 @@ button.close {
 .alert-minimalist > [data-notify="message"] {
   font-size: 80%; }
 
+.dropdown-toggle:active, .open .dropdown-toggle {
+  background: #FFF !important;
+  color: #000 !important; }
+
+.media {
+  cursor: pointer; }
+  .media:hover {
+    background-color: #f9f9f9; }
+
 /*# sourceMappingURL=app.css.map */

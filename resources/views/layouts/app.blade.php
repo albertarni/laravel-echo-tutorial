@@ -11,10 +11,9 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Styles -->
-        <link href="/css/app.css" rel="stylesheet">
-        <link href="/css/bootstrap-notifications.css" rel="stylesheet">
-        <link href="/css/animate.css" rel="stylesheet">
-        <link href="/css/font-awesome-animation.min.css" rel="stylesheet">
+        <link href="css/app.css" rel="stylesheet">
+        <link href="css/bootstrap-notifications.css" rel="stylesheet">
+        <link href="css/animate.css" rel="stylesheet">
 
         <!-- Scripts -->
         <script>
@@ -58,15 +57,38 @@ echo json_encode([
                             <li><a href="{{ url('/login') }}">Login</a></li>
                             <li><a href="{{ url('/register') }}">Register</a></li>
                             @else
-                            <li>
-                                <a href="javascript:void()">
+
+                            <li class="dropdown dropdown-notifications">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <transition
                                         enter-active-class="animated tada"
                                         leave-active-class="animated tada">
                                         <i v-show="showNotifiction" class="glyphicon glyphicon-bell notification-icon"><span class="badge">@{{ animatedNumber }}</span></i>
                                     </transition>
                                 </a>
-                            </li>
+
+                                <ul class="dropdown-menu dropdown-menu-left">
+                                    <li class="notification active">
+                                        <div class="media">
+                                            <div class="media-left media-middle">
+                                                <div class="media-object">
+                                                    <img class="img-circle" style="width: 32px; height: 32px;" src="">
+                                                </div>
+                                            </div>
+                                            <div class="media-body">
+                                                <strong class="notification-title"><a href="#">Nikola Tesla</a> resolved <a href="#">T-14 - Awesome stuff</a></strong>
+
+                                                <p class="notification-desc">Resolution: Fixed, Work log: 4h</p>
+
+                                                <div class="notification-meta">
+                                                    <small class="timestamp">27. 10. 2015, 08:00</small>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li> 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="position:relative; padding-left:50px;">
                                     <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width:32px; height:32px; position:absolute; top:10px; left:10px; border-radius:50%">
@@ -110,7 +132,8 @@ echo json_encode([
                                                    data: {
                                                        showNotifiction: true,
                                                        number: 0,
-                                                       animatedNumber: 0
+                                                       animatedNumber: 0,
+
                                                    },
                                                    methods: {
                                                        toggleNotification: function () {
@@ -136,6 +159,11 @@ echo json_encode([
                                                                    .start()
                                                            animate()
                                                        }
+                                                   },
+                                                   mounted: function () {
+//                                                       this.$http.get('/').then(resp = > {
+//
+//                                                       });
                                                    }
                                                });</script>
 

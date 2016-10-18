@@ -20,3 +20,5 @@ Route::get('/home', 'HomeController@index');
 Route::get('profile', 'UserController@profile');
 
 Route::post('profile', 'UserController@update_avatar');
+
+Route::post('get-online-users', 'UserController@getOnlineUsers');

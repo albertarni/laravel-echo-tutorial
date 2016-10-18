@@ -68,5 +68,3 @@ window.Echo.private('chat-room.1')
         app.toggleNotification();
     });
 
-
-
