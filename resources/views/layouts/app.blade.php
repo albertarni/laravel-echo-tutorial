@@ -14,7 +14,6 @@
         <link href="/css/app.css" rel="stylesheet">
         <link href="/css/bootstrap-notifications.css" rel="stylesheet">
         <link href="/css/animate.css" rel="stylesheet">
-        <link href="/css/font-awesome-animation.min.css" rel="stylesheet">
 
         <!-- Scripts -->
         <script>
