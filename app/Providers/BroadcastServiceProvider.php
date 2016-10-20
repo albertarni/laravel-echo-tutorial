@@ -24,10 +24,5 @@ class BroadcastServiceProvider extends ServiceProvider
             return (int) $user->id === (int) $userId;
         });
 
-        Broadcast::channel('chat-room.*', function ($user, $chatroomId) {
-            if (true) { // Replace with real ACL
-                return true;
-            }
-        });
     }
 }

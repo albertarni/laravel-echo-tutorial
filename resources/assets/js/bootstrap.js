@@ -47,24 +47,4 @@ import Echo from "laravel-echo"
  });
 
     
-window.Echo.private('chat-room.1')
-    .listen('ChatMessageWasReceived', (e) => {        
-        $.notify({
-            icon: e.user.profile_picture,
-            title: e.user.name,
-            message: e.chatMessage
-        },{
-            type: 'minimalist',
-            delay: 5000,
-            icon_type: 'image',
-            template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
-                '<img data-notify="icon" class="img-circle pull-left">' +
-                '<span data-notify="title">{1}</span>' +
-                '<span data-notify="message">{2}</span>' +
-                '</div>'
-        });
-        
-        app.number += 1;
-        app.toggleNotification();
-    });
 
