@@ -7,6 +7,7 @@ use Auth;
 use Image;
 use App\Http\Requests;
 use App\User;
+use Illuminate\Database\Eloquent\Model;
 
 class UserController extends Controller
 {
@@ -41,6 +42,7 @@ class UserController extends Controller
 
     public function getNotifications()
     {
-        
+        $data = Auth::user()->notifications()->get(['data', 'created_at', 'id']);
+        return $data;
     }
 }

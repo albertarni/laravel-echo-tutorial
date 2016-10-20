@@ -12,12 +12,15 @@ class SendChatMessage extends Command
     public function handle()
     {
         // Fire off an event, just randomly grabbing the first user for now
-        $user    = \App\User::first();
-        $message = \App\ChatMessage::create([
-                'user_id' => $user->id,
-                'message' => $this->argument('message')
-        ]);
+        $user    = \App\User::find(2);
+        $from_user    = \App\User::find(3);
+//        $message = \App\ChatMessage::create([
+//                'user_id' => $user->id,
+//                'message' => $this->argument('message')
+//        ]);
 
-        event(new \App\Events\ChatMessageWasReceived($this->argument('message'), $user));
+
+        $user->notify(new \App\Notifications\WorkoutAssigned($from_user->name, $this->argument('message')));
+//        event(new \App\Events\ChatMessageWasReceived($this->argument('message'), $user));
     }
 }
