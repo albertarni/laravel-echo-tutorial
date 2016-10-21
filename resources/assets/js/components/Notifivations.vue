@@ -1,10 +1,10 @@
 <template>
-<li class="dropdown dropdown-notifications open">
+<li class="dropdown dropdown-notifications">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <transition
             enter-active-class="animated tada"
             leave-active-class="animated tada">
-            <i v-show="showNotifiction" class="glyphicon glyphicon-bell notification-icon"><span class="badge">{{ animatedNumber }}</span></i>
+            <i v-show="showNotifiction" class="glyphicon glyphicon-bell notification-icon"><span class="badge">{{ animatedUnreadNotificationCount }}</span></i>
         </transition>
     </a>
 
@@ -14,11 +14,11 @@
             <div class="dropdown-toolbar-actions">
                 <a href="#">Mark all as read</a>
             </div>
-            <h3 class="dropdown-toolbar-title">Notifications ({{number}})</h3>
+            <h3 class="dropdown-toolbar-title">Notifications ({{unreadNotificationCont}})</h3>
         </div><!-- /dropdown-toolbar -->
 
         <ul class="dropdown-menu">
-            <li class="notification" v-for="notification in notofications">
+            <li class="notification" v-for="notification in notofications" v-on:click="markAsRead(notification)" v-bind:class="{active: !notification.is_readed}">
                 <div class="media">
                     <div class="media-left media-middle">
                         <div class="media-object">
@@ -54,14 +54,16 @@
             
             this.listenChanel();
             this.$http.post('/get-notifications').then(resp => {
-                    this.notofications = resp.data;
+                    this.notofications = resp.data.notifications;
+                    this.unreadNotificationCont = resp.data.unread_notidications_count;
             });
+
         },        
         data() {
             return {
                 showNotifiction: true,
-                number: 0,
-                animatedNumber: 0,
+                unreadNotificationCont: 0,
+                animatedUnreadNotificationCount: 0,
                 notofications: []
             }
         },
@@ -94,13 +96,34 @@
                                     '</div>'
                         });
 
-                    this.number += 1;
+                    this.unreadNotificationCont += 1;
                     this.toggleNotification();
+
+                    this.notofications.unshift({  
+                        id: notification.id,
+                        type: notification.type,
+                        notifiable_id:2,
+                        notifiable_type:"App\\User",
+                        data:{  
+                           from: notification.from,
+                           message: notification.message
+                        },
+                        read_at:null,
+                        created_at:"2016-10-21 12:41:37",
+                        updated_at:"2016-10-21 12:41:37",
+                        is_readed:false
+                    });
                 });                                               
+            },
+            markAsRead: function(notification) {
+                this.$http.post('/read-notification/' + notification.id).then(resp => {
+                    notification.is_readed = true;
+                    this.unreadNotificationCont = resp.data.unread_notidications_count;
+                });
             }
         },
         watch: {
-            number: function (newValue, oldValue) {
+            unreadNotificationCont: function (newValue, oldValue) {
                 var vm = this
                 function animate(time) {
                     requestAnimationFrame(animate)
@@ -110,11 +133,11 @@
                         .easing(TWEEN.Easing.Quadratic.Out)
                         .to({tweeningNumber: newValue}, 500)
                         .onUpdate(function () {
-                            vm.animatedNumber = this.tweeningNumber.toFixed(0)
+                            vm.animatedUnreadNotificationCount = this.tweeningNumber.toFixed(0)
                         })
                         .start()
                 animate()
             }
-        },
+        }
     }
 </script>

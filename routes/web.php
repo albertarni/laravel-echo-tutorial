@@ -24,3 +24,5 @@ Route::post('profile', 'UserController@update_avatar');
 Route::post('get-online-users', 'UserController@getOnlineUsers');
 
 Route::post('get-notifications', 'UserController@getNotifications');
+
+Route::post('read-notification/{notification}', 'UserController@readNotification');

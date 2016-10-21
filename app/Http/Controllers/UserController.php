@@ -8,6 +8,7 @@ use Image;
 use App\Http\Requests;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\DatabaseNotification as Notification;
 
 class UserController extends Controller
 {
@@ -42,7 +43,26 @@ class UserController extends Controller
 
     public function getNotifications()
     {
-        $data = Auth::user()->notifications()->get(['data', 'created_at', 'id']);
+        $user         = Auth::user();
+        $notifictions = $user->notifications->map(function($item) {
+            $item->is_readed         = boolval($item->read_at);
+            return $item;
+        });
+
+        $data = [
+            'notifications'              => $notifictions,
+            'unread_notidications_count' => $user->unreadNotifications->count()
+        ];
         return $data;
+    }
+
+    public function readNotification(Request $request, Notification $notification)
+    {
+        $user = Auth::user();
+        $notification->markAsRead();
+
+        return [
+            'unread_notidications_count' => $user->unreadNotifications->count()
+        ];
     }
 }
