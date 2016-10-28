@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\ChatMessage;
 
 class HomeController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *

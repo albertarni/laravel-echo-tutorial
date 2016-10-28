@@ -39,4 +39,9 @@ class User extends Authenticatable
         return "/uploads/avatars/{$this->avatar}";
     }
 
+    public function chatRooms()
+    {
+        return $this->belongsToMany(ChatRoom::class);
+    }
+
 }

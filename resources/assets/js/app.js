@@ -16,3 +16,4 @@ require('./bootstrap');
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('notifications', require('./components/Notifivations.vue'));
 Vue.component('online-users', require('./components/OnlineUsers.vue'));
+Vue.component('chat', require('./components/Chat.vue'));
