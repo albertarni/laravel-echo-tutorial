@@ -109,6 +109,17 @@ echo json_encode([
 //                                                       });
                                                    }
                                                });
+
+                                               var store = new Vuex.Store({
+                                                   state: {
+                                                       count: 0
+                                                   },
+                                                   mutations: {
+                                                       increment (state) {
+                                                           state.count++
+                                                       }
+                                                   }
+                                               });
         </script>
 
     </body>
@@ -117,4 +128,4 @@ echo json_encode([
 
 
 
-   
+

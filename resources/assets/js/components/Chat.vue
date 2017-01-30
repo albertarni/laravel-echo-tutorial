@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-5 chat-panel" style="position: absolute; bottom: 0; right: 0;">
+    <div class="col-md-5 chat-panel" v-show="showChat">
         <div class="row">
             <div class="col-md-7">
                 <div class="panel panel-primary">
@@ -76,11 +76,16 @@
 <script>
     export default {
         mounted() {               
+            this.$http.get('/get-messages').then(resp => {
+                    
+            });
+
             console.log('Chat.vue component ready.')
         },        
         data() {
             return {
-                
+                showChat: true,
+                messages: [],
             }
         },
         methods: {
@@ -88,3 +93,11 @@
         }
     }
 </script>
+
+<style scoped>
+    .chat-panel {
+        position: absolute; 
+        bottom: 0;
+        right: 0;
+    } 
+</style>
